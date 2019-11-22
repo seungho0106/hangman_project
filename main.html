@@ -1,45 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-<title>Lab 8</title>
-<meta charset="utf-8" />
+<title>Hangman Project</title>
+<meta charset="utf-8">
 </head>
 <body>
-<script>
-  function generateButtons(n) {
-    for (let i = 0; i < n; i++) {
-      let input = document.createElement("input");
-      input.type = "button";
-      input.value = String.fromCharCode(65 + i);
-      input.onclick = () => console.log(`Button ${input.value} was clicked!`);
-      document.body.appendChild(input);
-    }
-  }
-
-  function Recipe(title, servings, ingredients) {
-    this.title = title,
-    this.servings = servings,
-    this.ingredients = ingredients,
-    this.print = function (nOfServings) {
-      this.servings = nOfServings;
-      document.write(`<br/>Title: ${this.title}<br/>`);
-      document.write(`Serves: ${this.servings}<br/>`);
-      document.write(`Ingredients:<br/>`);
-      for (let i = 0; i < this.ingredients.length; i++) {
-        document.write(`${this.ingredients[i]} </br>`);
-      }
-    }
-  }
-
-
-  function main() {
-    generateButtons(26);
-
-    let walnut_pastry = new Recipe("Korean Walnut Pastry", 1, ["walnuts", "red bean paste", "flour"]);
-    walnut_pastry.print(2);
-  }
-
-  main();
-</script>
+<script src="js/game_logic.js"></script>
 </body>
 </html>
