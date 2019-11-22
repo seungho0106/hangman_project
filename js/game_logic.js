@@ -1,4 +1,3 @@
-
 let wordBank = [new GuessWord("committeee", "a body of persons delegated to consider, investigate, take action on, or report on some matter ")];
 
 // function createWordBank() {}
@@ -23,6 +22,16 @@ function generateAlphabets() { // grey out alphabets
   }
 }
 
+function generateUnderlines(word) {
+  for (let i = 0; i < word.length; i++) {
+    let underline = document.createElement('P');
+    underline.innerHTML = '_'
+    underline.class = 'character'
+    underline.dataset.character = word[i]
+    document.body.appendChild(underline);
+  }
+}
+
 function findMatch(character, word) {
   let arrIndices = [];
   for (let i = 0; i < word.length; i++) {
@@ -34,6 +43,12 @@ function findMatch(character, word) {
   return arrIndices;
 }
 
+function incrementScore(){
+  score = document.getElementById('score').value;
+  score+=1
+  document.getElementById('score').innerHTML = score;
+}
+
 function generateResetButton() {
 
 }
@@ -41,6 +56,6 @@ function generateResetButton() {
 function main() {
   // generateAlphabets();
   console.log(`findMatch =  ${findMatch('t', "committee")}`);
+  generateAlphabets();
+  generateUnderlines('hello');
 }
-
-main();
