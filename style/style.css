@@ -1,3 +1,6 @@
 input {
+    margin: 0.4%;
     background-color: beige;
+    font-size: 105%;
+    border-radius: 4px;
 }

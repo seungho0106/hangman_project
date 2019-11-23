@@ -25,9 +25,9 @@ function generateAlphabets() { // grey out alphabets
 function generateUnderlines(word) {
   for (let i = 0; i < word.length; i++) {
     let underline = document.createElement('P');
-    underline.innerHTML = '_'
-    underline.class = 'character'
-    underline.dataset.character = word[i]
+    underline.innerHTML = '_';
+    underline.class = 'character';
+    underline.dataset.character = word[i];
     document.body.appendChild(underline);
   }
 }
