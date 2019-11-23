@@ -1,4 +1,5 @@
-let wordBank = [new GuessWord("committeee", "a body of persons delegated to consider, investigate, take action on, or report on some matter ")];
+let wordBank = [new GuessWord("committee", "a body of persons delegated to consider, investigate, take action on, or report on some matter")];
+let alphabets = []
 
 // function createWordBank() {}
 
@@ -13,12 +14,18 @@ function GuessWord(word, definition) {
 
 function generateAlphabets() { // grey out alphabets
   for (let i = 0; i < 26; i++) {
-    let input = document.createElement("input");
-    input.class = "alphabet";
-    input.type = "button";
-    input.value = String.fromCharCode(97 + i);
-    input.onclick = () => console.log(`Button ${input.value} was clicked!`); // change!!
-    document.body.appendChild(input);
+    let alphBtn = new Alphabet(String.fromCharCode(97 + i))
+    alphabets.push(alphBtn)
+  }
+}
+
+function Alphabet(char){
+  this.btn = document.createElement('INPUT');
+  this.btn.type = 'button';
+  this.btn.value = char;
+  document.body.appendChild(this.btn);
+  this.clicked = function(){
+    this.btn.disabled = true;
   }
 }
 
@@ -39,13 +46,12 @@ function findMatch(character, word) {
       arrIndices.push(i);
     }
   }
-
   return arrIndices;
 }
 
-function incrementScore(){
+function changeScore(num){ //num==1 when right, -1 when wrong guess
   score = document.getElementById('score').value;
-  score+=1
+  score+=num
   document.getElementById('score').innerHTML = score;
 }
 
