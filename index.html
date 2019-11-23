@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-<title>Hangman Project</title>
-<meta charset="utf-8">
-    <link rel="stylesheet" href="style/style.css">
+  <title>Hangman Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-<p id="word-definition"></p>
-<p class="score">Score: <span class="score">0</span></p>
+<div id="header">
+  <div class="top-header">
+    <p>Score: <span class='score'>0</span></p>
+    <button class="hint"></button>
+  </div>
+  <p class="word-text"></p>
+  <p class="word-definition"></p>
+</div>
+<div id="game">
+  <div class="hangman"></div>
+  <div class="alphabets"></div>
+</div>
 <script src="js/game_logic.js"></script>
 </body>
 </html>
