@@ -5,6 +5,7 @@ const game = function() {
   const wordText = document.querySelector(".word-text");
   const wordDefinition = document.querySelector(".word-definition");
   const alphabets = document.querySelector(".alphabets");
+  const hint = document.querySelector(".hint");
 
   let wordBank = [];
   let guessWord = "";
@@ -23,6 +24,7 @@ const game = function() {
     guessWord: guessWord,
     alphabetArray: alphabetArray,
     setGuessWord: setGuessWord,
+    hint: hint,
   }
 }();
 
@@ -42,7 +44,6 @@ function GuessWord(word, definition) {
 
 function generateUnderlines(length) {
   let underlines = [];
-
   for (let i = 0; i < length; i++) {
     let underline = document.createElement('span');
     underline.innerHTML = '_';
@@ -50,7 +51,6 @@ function generateUnderlines(length) {
     underlines.push(underline);
     game.wordText.appendChild(underline);
   }
-
   return underlines;
 }
 
@@ -102,7 +102,6 @@ function changeScore(num){ //num==1 when right, -1 when wrong guess
 }
 
 function generateResetButton() {
-
 }
 
 function main() {
@@ -110,6 +109,7 @@ function main() {
   game.setGuessWord(new GuessWord("committee", "a body of persons delegated to consider, investigate, take action on, or report on some matter "));
   console.log(`game.guessWord = ${game.guessWord}`);
   console.log(`game.guessWord.word = ${game.guessWord.word}`);
+  game.hint.addEventListener("click", () => game.guessWord.displayDefinition());
 }
 
 main();
