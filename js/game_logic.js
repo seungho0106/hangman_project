@@ -1,34 +1,76 @@
-let wordBank = [new GuessWord("committeee", "a body of persons delegated to consider, investigate, take action on, or report on some matter ")];
+// Global namespace
+const game = function() {
+  // HTML Elements
+  const wordText = document.querySelector(".word-text");
+  const wordDefinition = document.querySelector(".word-definition");
+  const alphabets = document.querySelector(".alphabets");
 
-// function createWordBank() {}
+  let wordBank = [new GuessWord("committee",
+    "a body of persons delegated to consider, investigate, take action on, or report on some matter ")];
+  let currentGuessWord = wordBank[0];
+
+  return {
+    wordText: wordText,
+    wordDefinition: wordDefinition,
+    alphabets: alphabets,
+    currentGuessWord: currentGuessWord,
+  }
+}();
 
 function GuessWord(word, definition) {
   this.word = word;
   this.definition = definition;
+  this.text = generateUnderlines(word.length);
   this.displayDefinition = function() {
-    let wordDefinition = document.getElementById("word-definition");
-    wordDefinition.innerHTML = this.definition;
+    game.wordDefinition.innerHTML = this.definition;
   }
+  this.displayText = function() {
+    for (let i = 0; i < this.text.length; i++) {
+      game.wordText.appendChild(this.text[i]);
+    }
+  }
+}
+
+function generateUnderlines(length) {
+  let underlines = [];
+
+  for (let i = 0; i < length; i++) {
+    let underline = document.createElement('span');
+    underline.innerHTML = '_';
+    underline.class = 'character';
+    underlines.push(underline);
+  }
+
+  return underlines;
 }
 
 function generateAlphabets() { // grey out alphabets
   for (let i = 0; i < 26; i++) {
-    let input = document.createElement("input");
-    input.class = "alphabet";
-    input.type = "button";
-    input.value = String.fromCharCode(97 + i);
-    input.onclick = () => console.log(`Button ${input.value} was clicked!`); // change!!
-    document.body.appendChild(input);
+    let alphabet = document.createElement("input");
+    alphabet.class = "alphabet-before";
+    alphabet.type = "button";
+    alphabet.value = String.fromCharCode(97 + i);
+    alphabet.addEventListener("click", () => alphabetClickHandler(alphabet), { once: true });
+    game.alphabets.appendChild(alphabet);
   }
 }
 
-function generateUnderlines(word) {
-  for (let i = 0; i < word.length; i++) {
-    let underline = document.createElement('P');
-    underline.innerHTML = '_'
-    underline.class = 'character'
-    underline.dataset.character = word[i]
-    document.body.appendChild(underline);
+function alphabetClickHandler(alphabet) {
+  // Grey out and become unclickable
+  alphabet.class = "alphabet-after";
+  alphabet.disabled = true;
+
+  // Find matches in current word
+  let matches = findMatch(alphabet.value, game.currentGuessWord.word);
+
+  if (matches.length === 0) {
+    changeScore(-1);
+    setupHangman();
+  }
+  else {
+    for (let i = 0; i < matches.length; i++) {
+      game.currentGuessWord.text[matches[i]].innerHTML = alphabet.value;
+    }
   }
 }
 
@@ -43,9 +85,9 @@ function findMatch(character, word) {
   return arrIndices;
 }
 
-function incrementScore(){
-  score = document.getElementById('score').value;
-  score+=1
+function incrementScore() {
+  let score = document.getElementById('score').value;
+  score++;
   document.getElementById('score').innerHTML = score;
 }
 
@@ -54,8 +96,8 @@ function generateResetButton() {
 }
 
 function main() {
-  // generateAlphabets();
-  console.log(`findMatch =  ${findMatch('t', "committee")}`);
   generateAlphabets();
-  generateUnderlines('hello');
+  game.currentGuessWord.displayText();
 }
+
+main();
