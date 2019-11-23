@@ -1,4 +1,4 @@
-let wordBank = [new GuessWord("committee", "a body of persons delegated to consider, investigate, take action on, or report on some matter ")];
+let wordBank = [new GuessWord("committeee", "a body of persons delegated to consider, investigate, take action on, or report on some matter ")];
 
 // function createWordBank() {}
 
@@ -45,7 +45,7 @@ function findMatch(character, word) {
 
 function incrementScore(){
   score = document.getElementById('score').value;
-  score+=1;
+  score+=1
   document.getElementById('score').innerHTML = score;
 }
 
@@ -59,5 +59,3 @@ function main() {
   generateAlphabets();
   generateUnderlines('hello');
 }
-
-// main()
