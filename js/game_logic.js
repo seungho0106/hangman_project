@@ -33,6 +33,7 @@ function GuessWord(word, definition) {
   this.definition = definition;
   this.text = generateUnderlines(word.length);
   this.displayDefinition = function() {
+    changeScore(-1)
     game.wordDefinition.innerHTML = this.definition;
   };
   this.displayText = function() {
@@ -82,6 +83,7 @@ function alphabetClickHandler(alphabet) {
     for (let i = 0; i < matches.length; i++) {
       game.guessWord.text[matches[i]].innerHTML = alphabet.value;
     }
+    changeScore(matches.length);
   }
 }
 
@@ -96,7 +98,7 @@ function findMatch(character, word) {
 }
 
 function changeScore(num){ //num==1 when right, -1 when wrong guess
-  let score = game.score.value;
+  let score = parseInt(game.score.innerText);
   score += num;
   game.score.innerHTML = score;
 }
