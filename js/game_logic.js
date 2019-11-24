@@ -47,7 +47,7 @@ function createLetters(length) {
 
   for (let i = 0; i < length; i++) {
     let letter = document.createElement("span");
-    letter.class = "word-letter";
+    letter.className = "word-letter";
     letter.innerHTML = "_";
     letters.push(letter);
   }
@@ -58,8 +58,8 @@ function createLetters(length) {
 function generateAlphabets() { // grey out alphabets
   for (let i = 0; i < 26; i++) {
     let alphabet = document.createElement("input");
-    alphabet.class = "alphabet-before";
     alphabet.type = "button";
+    alphabet.className = "alphabet";
     alphabet.value = String.fromCharCode(97 + i);
     alphabet.addEventListener("click", () => alphabetClickHandler(alphabet));
     game.alphabetArray.push(alphabet);
@@ -75,7 +75,6 @@ function resetAlphabets() {
 
 function alphabetClickHandler(alphabet) {
   // Grey out and become unclickable
-  alphabet.class = "alphabet-after";
   alphabet.disabled = true;
 
   // Find matches in current word

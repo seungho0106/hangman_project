@@ -1,16 +1,14 @@
-input {
-     margin: 0.4%;
-     background-color: beige;
-     font-size: 105%;
-     border-radius: 4px;
-}
-.alphabets {
-
+.alphabet {
+    margin: 0.4%;
+    background-color: beige;
+    font-size: 105%;
+    border-radius: 1em;
 }
 .score {
     text-align: center;
     font-size: 105%;
 }
-.character {
-    margin: 0 0.1em 0 0.1em;
+.word-letter {
+    margin: 0.2%;
+    font-size: 32px;
 }
