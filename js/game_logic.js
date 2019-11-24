@@ -5,6 +5,7 @@ const game = function() {
   const wordText = document.querySelector(".word-text");
   const wordDefinition = document.querySelector(".word-definition");
   const alphabets = document.querySelector(".alphabets");
+  const hint = document.querySelector(".hint");
 
   let wordBank = [];
   let guessWord = "";
@@ -18,6 +19,7 @@ const game = function() {
     wordBank: wordBank,
     guessWord: guessWord,
     alphabetArray: alphabetArray,
+    hint: hint,
   }
 }();
 
@@ -30,9 +32,6 @@ function GuessWord(word, definition) {
     for (let letter of this.letters) {
       game.wordText.appendChild(letter);
     }
-  };
-  this.displayDefinition = function() {
-    game.wordDefinition.innerHTML = this.definition;
   };
   this.clear = function() {
     for (let letter of this.letters) {
@@ -141,10 +140,20 @@ function changeScore(num) {
   game.score.innerHTML = score.toString();
 }
 
+function setupHintButton() {
+  game.hint.addEventListener("click", () => {
+    changeScore(-2);
+    game.wordDefinition.innerHTML = game.guessWord.definition;
+    game.hint.disabled = true;
+  });
+}
+
 function main() {
   generateAlphabets();
   populateWordBank();
   setGuessWord();
+  setupHintButton();
+
 }
 
 main();
