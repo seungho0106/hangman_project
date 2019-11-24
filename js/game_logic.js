@@ -45,9 +45,6 @@ function populateWordBank() {
   game.wordBank = [new GuessWord("committee",
     "a body of persons delegated to consider, investigate, take action on, or report on some matter "),
     new GuessWord("braggadocio", "empty boasting")];
-  for (let word of game.wordBank) {
-    console.log(`word = ${word}`);
-  }
 }
 
 function GuessWord(word, definition) {

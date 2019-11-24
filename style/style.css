@@ -1,17 +1,40 @@
-.alphabets {
+#game {
+    display: flex;
+    flex: 50%;
+}
+
+.alphabet {
     margin: 0.4%;
     background-color: beige;
     font-size: 105%;
     border-radius: 1em;
 }
-.restart-button {
+.alphabets {
 
 }
+.header-1 {
+    font-size: 3vw;
+}
+.hint {
+    margin: 0.4%;
+    background-color: lightsalmon;
+    font-size: 105%;
+    border-radius: 4px;
+}
+.restart-button {
+    margin: 0 auto;
+    width: 25%;
+}
 .score {
+    margin: 0;
+}
+
+.top-header {
     text-align: center;
     font-size: 105%;
 }
 .word-letter {
     margin: 0.2%;
-    font-size: 32px;
+    text-align: center;
+    font-size: 200%;
 }
