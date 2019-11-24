@@ -1,7 +1,7 @@
 // Global namespace
 const game = function() {
   // HTML Elements
-  const score = document.getElementById('scoreValue');
+  const score = document.querySelector('#scoreValue');
   const wordText = document.querySelector(".word-text");
   const wordDefinition = document.querySelector(".word-definition");
   const alphabets = document.querySelector(".alphabets");
@@ -33,8 +33,9 @@ function GuessWord(word, definition) {
   this.definition = definition;
   this.text = generateUnderlines(word.length);
   this.displayDefinition = function() {
-    changeScore(-1)
+    changeScore(-1);
     game.wordDefinition.innerHTML = this.definition;
+    game.hint.disabled = true;
   };
   this.displayText = function() {
     for (let i = 0; i < this.text.length; i++) {
