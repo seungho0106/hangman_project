@@ -1,27 +1,58 @@
+"use strict";
 // Global namespace
 const game = function() {
   // HTML Elements
-  const score = document.querySelector("#score");
-  const wordText = document.querySelector(".word-text");
-  const wordDefinition = document.querySelector(".word-definition");
+<<<<<<<<< Temporary merge branch 1
+  const score = document.getElementById('score');
+=========
   const alphabets = document.querySelector(".alphabets");
   const hint = document.querySelector(".hint");
+  const restartButton = document.querySelector(".restart-button");
+  const score = document.querySelector(".score");
+>>>>>>>>> Temporary merge branch 2
+  const wordText = document.querySelector(".word-text");
+  const wordDefinition = document.querySelector(".word-definition");
 
   let wordBank = [];
   let guessWord = "";
   let alphabetArray = [];
 
   return {
+    alphabets: alphabets,
+    hint: hint,
+    restartButton: restartButton,
     score: score,
     wordText: wordText,
     wordDefinition: wordDefinition,
-    alphabets: alphabets,
     wordBank: wordBank,
     guessWord: guessWord,
     alphabetArray: alphabetArray,
-    hint: hint,
-  }
+  };
 }();
+
+function setGuessWord() {
+  // Clear current guess word
+  if (game.guessWord) {
+    game.guessWord.clearText();
+  }
+  // Fill word bank if empty
+  if (!game.wordBank.length) {
+    console.log("hello1");
+    populateWordBank();
+  }
+
+  game.guessWord = game.wordBank.pop();
+  game.guessWord.displayText();
+}
+
+function populateWordBank() {
+  game.wordBank = [new GuessWord("committee",
+    "a body of persons delegated to consider, investigate, take action on, or report on some matter "),
+    new GuessWord("braggadocio", "empty boasting")];
+  for (let word of game.wordBank) {
+    console.log(`word = ${word}`);
+  }
+}
 
 function GuessWord(word, definition) {
   this.word = word;
@@ -33,7 +64,7 @@ function GuessWord(word, definition) {
       game.wordText.appendChild(letter);
     }
   };
-  this.clear = function() {
+  this.clearText = function() {
     for (let letter of this.letters) {
       letter.remove();
     }
@@ -66,12 +97,6 @@ function generateAlphabets() { // grey out alphabets
   }
 }
 
-function resetAlphabets() {
-  for (let alphabet of game.alphabetArray) {
-    alphabet.disabled = false;
-  }
-}
-
 function alphabetClickHandler(alphabet) {
   // Grey out and become unclickable
   alphabet.disabled = true;
@@ -91,37 +116,21 @@ function alphabetClickHandler(alphabet) {
     changeScore(matches.length);
 
     if (isFinished()) {
-      // Set new guess word
-      setGuessWord();
-
-      // Enable buttons again
       resetAlphabets();
+      resetHintButton();
+      setGuessWord();
     }
+  }
+}
+
+function resetAlphabets() {
+  for (let alphabet of game.alphabetArray) {
+    alphabet.disabled = false;
   }
 }
 
 function isFinished() {
   return game.guessWord.guessedLetters.every((value) => { return value; } )
-}
-
-function setGuessWord() {
-  let nextWord = game.wordBank.pop();
-  // Delete current guess word
-  if (game.guessWord) {
-    game.guessWord.clear();
-  }
-  if (!nextWord) {
-    populateWordBank();
-  }
-
-  game.guessWord = nextWord;
-  game.guessWord.displayText();
-}
-
-function populateWordBank() {
-  game.wordBank = [new GuessWord("committee",
-    "a body of persons delegated to consider, investigate, take action on, or report on some matter "),
-    new GuessWord("braggadocio", "empty boasting")];
 }
 
 function findMatch(character, word) {
@@ -140,6 +149,10 @@ function changeScore(num) {
   game.score.innerHTML = score.toString();
 }
 
+function resetScore() {
+  game.score.innerHTML = "0";
+}
+
 function setupHintButton() {
   game.hint.addEventListener("click", () => {
     changeScore(-2);
@@ -148,12 +161,27 @@ function setupHintButton() {
   });
 }
 
+function resetHintButton() {
+  game.hint.disabled = false;
+}
+
+function setupRestartButton() {
+  game.restartButton.addEventListener("click", () => reset());
+}
+
+function reset() {
+  resetAlphabets();
+  resetScore();
+  resetHintButton();
+  setGuessWord();
+}
+
 function main() {
   generateAlphabets();
   populateWordBank();
   setGuessWord();
   setupHintButton();
-
+  setupRestartButton();
 }
 
 main();
