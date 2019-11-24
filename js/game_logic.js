@@ -1,7 +1,7 @@
 // Global namespace
 const game = function() {
   // HTML Elements
-  const score = document.querySelector(".score");
+  const score = document.querySelector("#score");
   const wordText = document.querySelector(".word-text");
   const wordDefinition = document.querySelector(".word-definition");
   const alphabets = document.querySelector(".alphabets");
