@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+    <!--<link rel="stylesheet" href="leaderboard.css">-->
+    <style>
+        /* .table-striped>tbody>tr:nth-child(odd)>td,
+        .table-striped>tbody>tr:nth-child(odd)>th {
+            background-color: whitesmoke;
+            color: black;
+        }
+
+        .table-striped>tbody>tr:nth-child(even)>td,
+        .table-striped>tbody>tr:nth-child(even)>th {
+            background-color: #ECEFF1;
+            color: black;
+        } */
+        body{
+            min-width:80%;
+        }
+        #table-div {
+            text-align: center;
+            min-width: 100%;
+        }
+        table {
+            color: white;
+            border-spacing: 0;
+        }
+
+        tr:first-child {
+            color: gold;
+            background-color:white;
+            border: none;
+        }
+
+        tr:first-child>td {
+            border: none;
+        }
+
+        tr:nth-child(2)>td {
+            border-top-width: 2;
+        }
+
+        tr {
+            font-size: 22px;
+            font-weight: bold;
+            background-color: #484848;
+        }
+
+        th,
+        td {
+            margin: 0;
+            padding: .5em 0.5em;
+            text-align: center;
+            border-width: 1px 0;
+            border-color: gray;
+            border-style: solid;
+        }
+
+        th {
+            background-color: white;
+            color: black;
+            font-weight: bolder;
+            font-size: 35px;
+            border-width: 2px;
+        }
+        td:nth-child(odd) {
+            border-width: 1px 4px;
+            border-color: gray;
+            border-style: solid;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='table-div'>
+        <table id='results'>
+        </table>
+    </div>
+
+    <script>
+        let dataSet = [
+            { username: 'tj', score: 99 },
+            { username: 'AMIR', score: 999999999 },
+            { username: 'mat', score: 10 },
+            { username: 'mat', score: -1 },
+            { username: 'mat', score: 5 }
+        ]
+        dataSet.sort((a, b) => a.score < b.score);
+        for (const [i, o] of dataSet.entries()) { o.rank = i + 1 };
+        //console.log(dataSet);
+        function populateTable(dataSet) {
+            let table = $('#results').DataTable({
+                dom: 't',
+                data: dataSet,
+                autoWidth: true,
+                pageLength: 25,
+                columns: [
+                    { title: 'RANK', data: 'rank', width: '33%' },
+                    { title: 'USER', data: 'username', width: '33%' },
+                    { title: 'SCORE', data: 'score', width: '33%' }
+                ]
+            });
+        }
+        populateTable(dataSet);
+    </script>
+
+</body>
+
+</html>

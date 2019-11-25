@@ -47,3 +47,21 @@ span {
     font-size: 32px;
 
 }
+@media only screen and (max-width: 599px){
+    div{
+        display:block;
+    }
+}
+@media only screen and (min-width: 600px){
+    .hangman{
+        position: absolute;
+        left: 0px;
+        width: 60%
+    }
+    .alphabets{
+        position: absolute;
+        right: 0px;
+        width: 40%;
+        text-align: center;
+    }
+}
