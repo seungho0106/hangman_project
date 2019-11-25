@@ -1,5 +1,4 @@
 .alphabets {
-<<<<<<<<< Temporary merge branch 1
     margin: 0 auto;
     width: 25%;
 }
@@ -20,7 +19,6 @@ span {
 }
 .restart-button {
 
->>>>>>>>> Temporary merge branch 2
 }
 .score {
     margin: 0;
@@ -35,16 +33,17 @@ span {
     text-align: center;
     font-size: 105%;
 }
-<<<<<<<<< Temporary merge branch 1
+
 .character {
     margin: 0 0.1em 0 0.1em
 }
 .word-text {
     text-align: center;
     font-size: 105%;
-=========
+}
+
 .word-letter {
     margin: 0.2%;
     font-size: 32px;
->>>>>>>>> Temporary merge branch 2
+
 }
