@@ -1,8 +1,10 @@
 #game {
     display: flex;
-    flex: 50%;
+    justify-content: center;
+    text-align: center;
+    /*float: left;*/
+    /*width: 50%;*/
 }
-
 .alphabet {
     margin: 0.4%;
     background-color: beige;
@@ -10,10 +12,20 @@
     border-radius: 1em;
 }
 .alphabets {
-
+    flex: 60%;
+}
+.amir {
+    width: 60%;
+}
+.hangman {
+    flex: 40%;
 }
 .header-1 {
-    font-size: 3vw;
+    font-size: 1.5em;
+}
+.header-2 {
+    display: flex;
+    justify-content: center;
 }
 .hint {
     margin: 0.4%;
@@ -28,13 +40,12 @@
 .score {
     margin: 0;
 }
+.word-definition {
 
-.top-header {
-    text-align: center;
-    font-size: 105%;
 }
 .word-letter {
-    margin: 0.2%;
-    text-align: center;
+    margin: 0 0.5% 0 0.5%;
+}
+.word-text {
     font-size: 200%;
 }

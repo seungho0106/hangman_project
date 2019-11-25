@@ -3,6 +3,7 @@
 const game = function() {
   // HTML Elements
   const alphabets = document.querySelector(".alphabets");
+  const hangman = document.querySelector(".hangman")
   const hint = document.querySelector(".hint");
   const restartButton = document.querySelector(".restart-button");
   const score = document.querySelector(".score");
@@ -12,9 +13,11 @@ const game = function() {
   let wordBank = [];
   let guessWord = "";
   let alphabetArray = [];
+  let life = 7;
 
   return {
     alphabets: alphabets,
+    hangman: hangman,
     hint: hint,
     restartButton: restartButton,
     score: score,
@@ -23,6 +26,7 @@ const game = function() {
     wordBank: wordBank,
     guessWord: guessWord,
     alphabetArray: alphabetArray,
+    life: life,
   };
 }();
 
@@ -33,7 +37,6 @@ function setGuessWord() {
   }
   // Fill word bank if empty
   if (!game.wordBank.length) {
-    console.log("hello1");
     populateWordBank();
   }
 
@@ -78,15 +81,19 @@ function createLetters(length) {
   return letters;
 }
 
+function Alphabet(letter) {
+  this.btn = document.createElement("input");
+  this.btn.type = "button";
+  this.btn.className = "alphabet";
+  this.btn.value = String.fromCharCode(97 + i);
+  this.btn.addEventListener("click", () => alphabetClickHandler(this.btn));
+  game.alphabets.appendChild(this.btn);
+}
+
 function generateAlphabets() { // grey out alphabets
   for (let i = 0; i < 26; i++) {
-    let alphabet = document.createElement("input");
-    alphabet.type = "button";
-    alphabet.className = "alphabet";
-    alphabet.value = String.fromCharCode(97 + i);
-    alphabet.addEventListener("click", () => alphabetClickHandler(alphabet));
-    game.alphabetArray.push(alphabet);
-    game.alphabets.appendChild(alphabet);
+    let alphabet = new Alphabet()
+      game.alphabetArray.push(alphabet);
   }
 }
 
@@ -112,6 +119,7 @@ function alphabetClickHandler(alphabet) {
       resetAlphabets();
       resetHintButton();
       setGuessWord();
+      setupHintButton();
     }
   }
 }
@@ -146,12 +154,25 @@ function resetScore() {
   game.score.innerHTML = "0";
 }
 
+function setupHangman() {
+  let hangman = document.createElement("img");
+  hangman.src = "images/amir_hangman_1.png";
+  hangman.className = "amir";
+  game.hangman.appendChild(hangman);
+}
+
+function decrementLife() {
+
+}
+
 function setupHintButton() {
   game.hint.addEventListener("click", () => {
     changeScore(-2);
-    game.wordDefinition.innerHTML = game.guessWord.definition;
+    console.log(`game.guessWord.word = ${game.guessWord.word}`);
+    console.log(`game.guessWord.definition = ${game.guessWord.definition}`);
+    game.wordDefinition.innerHTML = "a";
     game.hint.disabled = true;
-  });
+  }, { once: true });
 }
 
 function resetHintButton() {
@@ -173,8 +194,16 @@ function main() {
   generateAlphabets();
   populateWordBank();
   setGuessWord();
+  setupHangman();
   setupHintButton();
   setupRestartButton();
+  // fetch("https://o-99.com/david", {
+  //   method: "GET",
+  //   mode: "cors",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   }
+  // }).then(data => console.log(`data = ${data}`));
 }
 
 main();
