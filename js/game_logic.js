@@ -2,14 +2,10 @@
 // Global namespace
 const game = function() {
   // HTML Elements
-<<<<<<<<< Temporary merge branch 1
-  const score = document.getElementById('score');
-=========
   const alphabets = document.querySelector(".alphabets");
   const hint = document.querySelector(".hint");
   const restartButton = document.querySelector(".restart-button");
   const score = document.querySelector(".score");
->>>>>>>>> Temporary merge branch 2
   const wordText = document.querySelector(".word-text");
   const wordDefinition = document.querySelector(".word-definition");
 

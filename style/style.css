@@ -10,8 +10,6 @@ input[type="button"] {
 }
 
 span {
-    margin: 0.3%;
-=========
     margin: 0.4%;
     background-color: beige;
     font-size: 105%;
@@ -55,12 +53,12 @@ span {
 @media only screen and (min-width: 600px){
     .hangman{
         position: absolute;
-        left: 0px;
+        left: 0;
         width: 60%
     }
     .alphabets{
         position: absolute;
-        right: 0px;
+        right: 0;
         width: 40%;
         text-align: center;
     }
