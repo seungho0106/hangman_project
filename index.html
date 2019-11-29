@@ -8,32 +8,44 @@
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style/style.css">
+  <link rel="stylesheet" href="style/leaderboard.css">
 </head>
 <body>
-<div class="container-fluid">
+<div class="container">
+  <div class="header col-md-12 text-center" style="background-color: #e7c5e8;">
+      <span>Score: <span id="score">0</span></span>
+      <button id="hint" class="btn-md btn-primary">Hint</button>
+  </div>
   <div class="row">
-    <div class="col-sm-12">
-      <div class="row header-1">
-        <span>Score: <span id="score">0</span></span>
-        <button id="hint" class="btn btn-primary">Hint</button>
-      </div>
-      <div class="row header-2">
+    <div class="col-md-12 col-xl-6 text-center">
+      <img id="hangman" class="img-fluid" src="./images/amir_hangman_1.png" alt="Amir's face">
+    </div>
+    <div class="col-md-12 col-xl-6">
+      <div id="word" class="col-md-12 text-center">
         <p id="word-text"></p>
         <p id="word-definition"></p>
       </div>
+      <div id="alphabets" class="col-md-12 text-center"></div>
     </div>
   </div>
-  <div class="row">
-    <div id="hangman" class="col-sm-4"></div>
-    <div id="alphabets" class="col-sm-8"></div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <button id="restart">Restart</button>
-    </div>
+  <div class="col-md-12 text-center mt-5">
+    <button id="restart">Restart</button>
   </div>
 </div>
 
+<!--overlay: upon losing, call overlayOn()-->
+<div id="overlay" onclick="overlayOff()">
+    <div id="text">
+        <h1>Leaderboard</h1>
+        <div id='table-div'>
+            <table id='results'>
+            </table>
+        </div>
+    </div>
+</div>
+
 <script src="js/game_logic.js"></script>
+<script src="js/leaderboard.js"></script>
+
 </body>
 </html>
