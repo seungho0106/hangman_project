@@ -16,8 +16,8 @@ const game = function() {
   let wordBank = [];
   let guessWord = "";
   let alphabetArray = [];
-  let life = 7;
-
+  let initialLife = 7;
+  let life = initialLife;
 
   return {
     alphabets: alphabets,
@@ -32,32 +32,13 @@ const game = function() {
     wordBank: wordBank,
     guessWord: guessWord,
     alphabetArray: alphabetArray,
+    initialLife: initialLife,
     life: life,
   };
 }();
 
-function setGuessWord() {
-  // Clear current guess word
-  if (game.guessWord) {
-    game.guessWord.clearText();
-  }
-  // Fill word bank if empty
-  if (!game.wordBank.length) {
-    populateWordBank();
-  }
-
-  game.guessWord = game.wordBank.pop();
-  game.guessWord.displayText();
-}
-
-function populateWordBank() {
-  game.wordBank = [new GuessWord("committee",
-    "a body of persons delegated to consider, investigate, take action on, or report on some matter "),
-    new GuessWord("braggadocio", "empty boasting")];
-}
-
 function GuessWord(word, definition) {
-  this.word = word;
+  this.word = word.toUpperCase();
   this.definition = definition;
   this.letters = createLetters(word.length);
   this.guessedLetters = Array(word.length).fill(false);
@@ -72,19 +53,6 @@ function GuessWord(word, definition) {
     }
     game.wordDefinition.innerHTML = "";
   }
-}
-
-function createLetters(length) {
-  let letters = [];
-
-  for (let i = 0; i < length; i++) {
-    let letter = document.createElement("span");
-    letter.className = "word-letter";
-    letter.innerHTML = "_";
-    letters.push(letter);
-  }
-
-  return letters;
 }
 
 function Alphabet(charCode) {
@@ -103,16 +71,16 @@ function generateAlphabets() { // grey out alphabets
   }
 }
 
-function alphabetClickHandler(alphabet) {
+async function alphabetClickHandler(alphabet) {
   // Grey out and become unclickable
   alphabet.disabled = true;
 
   // Find matches in current word
   let matches = findMatch(alphabet.value, game.guessWord.word);
-
   if (matches.length === 0) {
+    changeLife(-1);
     changeScore(-1);
-    // setupHangman();
+    changeHangman();
   }
   else {
     for (let i of matches) {
@@ -122,18 +90,31 @@ function alphabetClickHandler(alphabet) {
     changeScore(matches.length);
 
     if (isFinished()) {
+      await sleep(1000);
       resetAlphabets();
       resetHintButton();
       setGuessWord();
-      setupHintButton;
     }
   }
 }
 
-function resetAlphabets() {
-  for (let alphabet of game.alphabetArray) {
-    alphabet.disabled = false;
+function populateWordBank() {
+  game.wordBank = [new GuessWord("committee",
+    "a body of persons delegated to consider, investigate, take action on, or report on some matter "),
+    new GuessWord("braggadocio", "empty boasting")];
+}
+
+function createLetters(length) {
+  let letters = [];
+
+  for (let i = 0; i < length; i++) {
+    let letter = document.createElement("span");
+    letter.className = "word-letter";
+    letter.innerHTML = "_";
+    letters.push(letter);
   }
+
+  return letters;
 }
 
 function isFinished() {
@@ -150,39 +131,43 @@ function findMatch(character, word) {
   return arrIndices;
 }
 
+function changeLife(num) {
+  game.life += num;
+  if (game.life == 0) {
+    gameOver();
+  }
+}
+
 function changeScore(num) {
   let score = parseInt(game.score.innerHTML);
   score += num;
   game.score.innerHTML = score.toString();
 }
 
-function resetScore() {
-  game.score.innerHTML = "0";
-}
-
 function changeHangman() {
-  let hangman = document.createElement("img");
-  hangman.src = "images/amir_hangman_1.png";
-  hangman.className = "amir";
-  game.hangman.appendChild(hangman);
+  game.hangman.src = `./images/amir_hangman_${8 - game.life}.png`;
 }
 
-function decrementLife() {
+function setGuessWord() {
+  // Clear current guess word
+  if (game.guessWord) {
+    game.guessWord.clearText();
+  }
+  // Fill word bank if empty
+  if (!game.wordBank.length) {
+    populateWordBank();
+  }
+
+  game.guessWord = game.wordBank.pop();
+  game.guessWord.displayText();
 }
 
 function setupHintButton() {
   game.hint.addEventListener("click", () => {
     changeScore(-2);
-    console.log(`game.guessWord.word = ${game.guessWord.word}`);
-    console.log(`game.guessWord.definition = ${game.guessWord.definition}`);
-    game.wordDefinition.innerHTML = "a";
+    game.wordDefinition.innerHTML = `${game.guessWord.definition}`;
     game.hint.disabled = true;
-    console.log(game.hint.disabled)
   });
-}
-
-function resetHintButton() {
-  game.hint.disabled = false;
 }
 
 function setupRestartButton() {
@@ -192,16 +177,47 @@ function setupRestartButton() {
 function reset() {
   resetAlphabets();
   resetScore();
+  resetLife();
   resetHintButton();
-  setupHintButton;
+  resetHangman();
   setGuessWord();
 }
+
+function resetAlphabets() {
+  for (let alphabet of game.alphabetArray) {
+    alphabet.disabled = false;
+  }
+}
+
+function resetScore() {
+  game.score.innerHTML = "0";
+}
+
+function resetLife() {
+  game.life = game.initialLife;
+}
+
+function resetHintButton() {
+  game.hint.disabled = false;
+}
+
+function resetHangman() {
+  game.hangman.src = `./images/amir_hangman_1.png`;
+}
+
+function gameOver() {
+
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 function main() {
   generateAlphabets();
   populateWordBank();
   setGuessWord();
-  // setupHangman();
   setupHintButton();
   setupRestartButton();
   // fetch("https://o-99.com/david", {

@@ -1,9 +1,15 @@
+#hangman {
+    width: 60%;
+}
 .header > * {
     font-size: 2em;
 }
 .word-letter {
     font-size: 2em;
-    padding: 10px;
+    padding: 0.2em;
 }
 @media only screen and (max-width: 768px) {
+    #hangman {
+        width: 50%;
+    }
 }
