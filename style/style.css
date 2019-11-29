@@ -1,3 +1,14 @@
+#hangman {
+    justify-content: center;
+}
+#hint {
+    background-color: lightsalmon;
+    font-size: 105%;
+    border-color: bisque;
+}
+#hint:hover {
+    opacity: 50%;
+}
 #game {
     display: flex;
     justify-content: center;
@@ -14,25 +25,21 @@
 .alphabets {
     flex: 60%;
 }
-.amir {
-    width: 60%;
+img.amir {
+    width: 64vw;
 }
 .hangman {
     flex: 40%;
 }
-.header-1 {
-    font-size: 1.5em;
+div.header-1 > * {
+    font-size: 8vw;
+    margin: auto;
 }
-.header-2 {
+div.header-2 {
     display: flex;
     justify-content: center;
 }
-.hint {
-    margin: 0.4%;
-    background-color: lightsalmon;
-    font-size: 105%;
-    border-radius: 4px;
-}
+
 .restart-button {
     margin: 0 auto;
     width: 25%;
@@ -40,30 +47,30 @@
 .score {
     margin: 0;
 }
-.word-definition {
+#word-definition {
 
 }
 .word-letter {
-    margin: 0 0.5% 0 0.5%;
+    margin: 0 1vw 0 1vw;
 }
-.word-text {
+#word-text {
     font-size: 200%;
 }
-@media only screen and (max-width: 599px){
-    div{
-        display:block;
-    }
-}
-@media only screen and (min-width: 600px){
-    .hangman{
-        position: absolute;
-        left: 0px;
-        width: 60%
-    }
-    .alphabets{
-        position: absolute;
-        right: 0px;
-        width: 40%;
-        text-align: center;
-    }
-}
+/*@media only screen and (max-width: 599px){*/
+/*    div{*/
+/*        display:block;*/
+/*    }*/
+/*}*/
+/*@media only screen and (min-width: 600px){*/
+/*    .hangman{*/
+/*        position: absolute;*/
+/*        left: 0px;*/
+/*        width: 60%*/
+/*    }*/
+/*    .alphabets{*/
+/*        position: absolute;*/
+/*        right: 0px;*/
+/*        width: 40%;*/
+/*        text-align: center;*/
+/*    }*/
+/*}*/

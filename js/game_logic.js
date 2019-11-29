@@ -1,14 +1,13 @@
-"use strict";
 // Global namespace
 const game = function() {
   // HTML Elements
-  const alphabets = document.querySelector(".alphabets");
-  const hangman = document.querySelector(".hangman")
-  const hint = document.querySelector(".hint");
-  const restartButton = document.querySelector(".restart-button");
-  const score = document.querySelector(".score");
-  const wordText = document.querySelector(".word-text");
-  const wordDefinition = document.querySelector(".word-definition");
+  const alphabets = document.getElementById("alphabets");
+  const hangman = document.getElementById("hangman")
+  const hint = document.getElementById("hint");
+  const restartButton = document.getElementById("restart");
+  const score = document.getElementById("score");
+  const wordText = document.getElementById("word-text");
+  const wordDefinition = document.getElementById("word-definition");
 
   let wordBank = [];
   let guessWord = "";
@@ -81,18 +80,18 @@ function createLetters(length) {
   return letters;
 }
 
-function Alphabet(letter) {
+function Alphabet(charCode) {
   this.btn = document.createElement("input");
   this.btn.type = "button";
   this.btn.className = "alphabet";
-  this.btn.value = String.fromCharCode(97 + i);
+  this.btn.value = String.fromCharCode(charCode);
   this.btn.addEventListener("click", () => alphabetClickHandler(this.btn));
   game.alphabets.appendChild(this.btn);
 }
 
 function generateAlphabets() { // grey out alphabets
   for (let i = 0; i < 26; i++) {
-    let alphabet = new Alphabet()
+    let alphabet = new Alphabet(97 + i);
       game.alphabetArray.push(alphabet);
   }
 }
@@ -162,7 +161,6 @@ function setupHangman() {
 }
 
 function decrementLife() {
-
 }
 
 function setupHintButton() {
