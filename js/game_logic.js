@@ -9,10 +9,15 @@ const game = function() {
   const wordText = document.getElementById("word-text");
   const wordDefinition = document.getElementById("word-definition");
 
+  // Environment variables
+  const numAlphabets = 26;
+  const upperCaseA = 65;
+
   let wordBank = [];
   let guessWord = "";
   let alphabetArray = [];
   let life = 7;
+
 
   return {
     alphabets: alphabets,
@@ -20,6 +25,8 @@ const game = function() {
     hint: hint,
     restartButton: restartButton,
     score: score,
+    numAlphabets: numAlphabets,
+    upperCaseA: upperCaseA,
     wordText: wordText,
     wordDefinition: wordDefinition,
     wordBank: wordBank,
@@ -63,7 +70,7 @@ function GuessWord(word, definition) {
     for (let letter of this.letters) {
       letter.remove();
     }
-    game.wordDefinition = "";
+    game.wordDefinition.innerHTML = "";
   }
 }
 
@@ -90,8 +97,8 @@ function Alphabet(charCode) {
 }
 
 function generateAlphabets() { // grey out alphabets
-  for (let i = 0; i < 26; i++) {
-    let alphabet = new Alphabet(97 + i);
+  for (let i = 0; i < game.numAlphabets; i++) {
+    let alphabet = new Alphabet(game.upperCaseA + i);
       game.alphabetArray.push(alphabet);
   }
 }
@@ -153,7 +160,7 @@ function resetScore() {
   game.score.innerHTML = "0";
 }
 
-function setupHangman() {
+function changeHangman() {
   let hangman = document.createElement("img");
   hangman.src = "images/amir_hangman_1.png";
   hangman.className = "amir";
@@ -192,7 +199,7 @@ function main() {
   generateAlphabets();
   populateWordBank();
   setGuessWord();
-  setupHangman();
+  // setupHangman();
   setupHintButton();
   setupRestartButton();
   // fetch("https://o-99.com/david", {
