@@ -5,33 +5,27 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
 
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.3.0/firebase-firestore.js"></script>
+    <script src="database.js"></script>
+
     <!--<link rel="stylesheet" href="leaderboard.css">-->
     <style>
-        /* .table-striped>tbody>tr:nth-child(odd)>td,
-        .table-striped>tbody>tr:nth-child(odd)>th {
-            background-color: whitesmoke;
-            color: black;
+        body {
+            min-width: 80%;
         }
 
-        .table-striped>tbody>tr:nth-child(even)>td,
-        .table-striped>tbody>tr:nth-child(even)>th {
-            background-color: #ECEFF1;
-            color: black;
-        } */
-        body{
-            min-width:80%;
-        }
         #table-div {
             text-align: center;
             min-width: 100%;
         }
+
         table {
             color: white;
             border-spacing: 0;
@@ -39,7 +33,7 @@
 
         tr:first-child {
             color: gold;
-            background-color:white;
+            background-color: white;
             border: none;
         }
 
@@ -74,6 +68,7 @@
             font-size: 35px;
             border-width: 2px;
         }
+
         td:nth-child(odd) {
             border-width: 1px 4px;
             border-color: gray;
@@ -89,30 +84,34 @@
     </div>
 
     <script>
-        let dataSet = [
-            { username: 'tj', score: 99 },
-            { username: 'AMIR', score: 999999999 },
-            { username: 'mat', score: 10 },
-            { username: 'mat', score: -1 },
-            { username: 'mat', score: 5 }
-        ]
-        dataSet.sort((a, b) => a.score < b.score);
-        for (const [i, o] of dataSet.entries()) { o.rank = i + 1 };
+
+        var db = initFirestore();
+        var leaderData;
+        fetchLeaderboard(db).then( ([err,res]) => {
+            if( !err ){
+                populateTable(res);
+            }
+        });
+        
+        //dataSet.sort((a, b) => a.score < b.score);
+        
         //console.log(dataSet);
-        function populateTable(dataSet) {
+        function populateTable(leaderData) {
+            console.log(leaderData);
+            for (const [i, o] of leaderData.entries()) { o.rank = i + 1 };
             let table = $('#results').DataTable({
                 dom: 't',
-                data: dataSet,
+                data: leaderData,
                 autoWidth: true,
                 pageLength: 25,
                 columns: [
                     { title: 'RANK', data: 'rank', width: '33%' },
-                    { title: 'USER', data: 'username', width: '33%' },
+                    { title: 'USER', data: 'name', width: '33%' },
                     { title: 'SCORE', data: 'score', width: '33%' }
                 ]
             });
         }
-        populateTable(dataSet);
+
     </script>
 
 </body>

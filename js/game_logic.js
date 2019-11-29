@@ -125,7 +125,7 @@ function alphabetClickHandler(alphabet) {
       resetAlphabets();
       resetHintButton();
       setGuessWord();
-      setupHintButton();
+      setupHintButton;
     }
   }
 }
@@ -177,7 +177,8 @@ function setupHintButton() {
     console.log(`game.guessWord.definition = ${game.guessWord.definition}`);
     game.wordDefinition.innerHTML = "a";
     game.hint.disabled = true;
-  }, { once: true });
+    console.log(game.hint.disabled)
+  });
 }
 
 function resetHintButton() {
@@ -192,6 +193,7 @@ function reset() {
   resetAlphabets();
   resetScore();
   resetHintButton();
+  setupHintButton;
   setGuessWord();
 }
 
