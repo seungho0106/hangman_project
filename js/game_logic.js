@@ -61,7 +61,7 @@ function GuessWord(word, definition) {
     for (let letter of this.letters) {
       letter.remove();
     }
-    game.wordDefinition = "";
+    game.wordDefinition.innerHTML = "";
   }
 }
 
@@ -112,6 +112,7 @@ function alphabetClickHandler(alphabet) {
       resetAlphabets();
       resetHintButton();
       setGuessWord();
+      setupHintButton;
     }
   }
 }
@@ -151,6 +152,7 @@ function setupHintButton() {
     changeScore(-2);
     game.wordDefinition.innerHTML = game.guessWord.definition;
     game.hint.disabled = true;
+    console.log(game.hint.disabled)
   });
 }
 
@@ -166,6 +168,7 @@ function reset() {
   resetAlphabets();
   resetScore();
   resetHintButton();
+  setupHintButton;
   setGuessWord();
 }
 
