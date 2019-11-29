@@ -2,6 +2,7 @@
     margin: 0 auto;
     width: 25%;
 }
+
 input[type="button"] {
     margin: 0.4%;
     background-color: beige;
@@ -9,23 +10,32 @@ input[type="button"] {
     border-radius: 4px;
 }
 
+input[type="button"]:hover {
+    background-color: rgb(245, 240, 189);
+}
 span {
     margin: 0.4%;
-    background-color: beige;
+    /*background-color: beige;*/
     font-size: 105%;
     border-radius: 1em;
 }
 .restart-button {
-
+    display: block;
+    margin: 0 auto;
+    transform: translateY(100%);
 }
 .score {
     margin: 0;
+    text-align: center;
 }
 .hint {
-    margin: 0.4%;
+    margin: 0 auto;
     background-color: lightsalmon;
     font-size: 105%;
     border-radius: 4px;
+    display: block;
+    transform: translate(300%, -225%);
+
 }
 .top-header {
     text-align: center;
