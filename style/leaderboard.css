@@ -13,7 +13,7 @@ tr {
 }
 th, td {
     margin: 0;
-    padding: .2em .2em;
+    padding: .2rem .2rem;
     text-align: center;
     border-width: 1px 0;
     border-color: gray;
@@ -23,7 +23,7 @@ th {
     background-color: white;
     color: black;
     font-weight: bolder;
-    font-size: 35px;
+    font-size: 30px;
     border-width: 2px;
 }
 td:nth-child(odd) {
