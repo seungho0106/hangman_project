@@ -2,7 +2,7 @@
 const game = function() {
   // HTML Elements
   const alphabets = document.getElementById("alphabets");
-  const hangman = document.getElementById("hangman")
+  const hangman = document.getElementById("hangman");
   const hint = document.getElementById("hint");
   const restartButton = document.getElementById("restart");
   const score = document.getElementById("score");
@@ -51,15 +51,17 @@ function GuessWord(word, definition) {
       game.wordText.appendChild(letter);
     }
   };
+  this.displayAnswer = function() {
+    for (let i = 0; i < word.length; i++) {
+      this.letters[i].innerHTML = word[i].toUpperCase();
+    }
+  };
   this.clearText = function() {
     for (let letter of this.letters) {
       letter.remove();
     }
     game.wordDefinition.innerHTML = "";
-  }
-  // this.print = function() {
-  //   console.log(`${this.word}: ${this.definition}`);
-  // }
+  };
 }
 
 function Alphabet(charCode) {
@@ -78,6 +80,12 @@ function generateAlphabets() {
   }
 }
 
+function disableAlphabets() {
+  for (let alphabet of game.alphabetArray) {
+    alphabet.btn.disabled = true;
+  }
+}
+
 async function alphabetClickHandler(alphabet) {
   // Grey out and become unclickable
   alphabet.btn.disabled = true;
@@ -86,7 +94,7 @@ async function alphabetClickHandler(alphabet) {
   let matches = findMatch(alphabet.btn.value, game.guessWord.word);
   if (matches.length === 0) {
     changeScore(-1);
-    changeLife(-1);
+    await changeLife(-1);
   }
   else {
     for (let i of matches) {
@@ -138,12 +146,15 @@ function findMatch(character, word) {
   return arrIndices;
 }
 
-function changeLife(num) {
+async function changeLife(num) {
   game.life += num;
   changeHangman();
 
   if (game.life === 0) {
-    gameOver();
+    game.guessWord.displayAnswer();
+    disableAlphabets();
+    await sleep(1000);
+    await gameOver();
   }
 }
 
@@ -224,7 +235,7 @@ function resetHangman() {
 
 async function gameOver() {
   // Ask user for name
-  let name = prompt("Enter your name.");
+  let name = getUserName();
 
   // Add score to leaderboard
   await addToLeaderboard(name, parseInt(game.score.innerHTML));
@@ -232,6 +243,14 @@ async function gameOver() {
     populateTable(res);
     overlayOn();
   });
+}
+
+function getUserName() {
+  let name = prompt("Enter your name.");
+  while (name === "") {
+    name = prompt("Please enter something...");
+  }
+  return name;
 }
 
 function sleep(ms) {
@@ -270,7 +289,6 @@ async function fetchLeaderboard() {
   await game.db.collection('leaderboard').orderBy("score", "desc").limit(10).get()
     .then(function (querySnapshot) {
       querySnapshot.forEach(doc => {
-        console.log(`doc.data().score = ${doc.data().score}`);
         results.push(doc.data());
       });
     });
@@ -283,11 +301,11 @@ async function addToLeaderboard(name, score){
 }
 
 function setupLeaderboard() {
-  let table = $("#results").DataTable({
+  $("#results").DataTable({
     ordering: false,
     dom: 't',
     autoWidth: true,
-    pageLength: 25,
+    pageLength: 10,
     columns: [
       { title: 'RANK', data: 'rank', width: '33%' },
       { title: 'USER', data: 'name', width: '33%' },
@@ -327,11 +345,3 @@ function main() {
 }
 
 main();
-
-function getProperties(obj) {
-  let result = [];
-  for (let p in obj) {
-    result.push([p, typeof(obj[p])]);
-  }
-  return result;
-}

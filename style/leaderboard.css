@@ -1,25 +1,17 @@
-/* table */
-body {
-    min-width: 80%;
-}
-
 #table-div {
     text-align: center;
     min-width: 100%;
 }
-
 table {
     color: white;
     border-spacing: 0;
 }
 tr {
-    font-size: 22px;
+    font-size: 1rem;
     font-weight: bold;
     background-color: #484848;
 }
-
-th,
-td {
+th, td {
     margin: 0;
     padding: .5em 0.5em;
     text-align: center;
@@ -27,7 +19,6 @@ td {
     border-color: gray;
     border-style: solid;
 }
-
 th {
     background-color: white;
     color: black;
@@ -35,14 +26,11 @@ th {
     font-size: 35px;
     border-width: 2px;
 }
-
 td:nth-child(odd) {
     border-width: 1px 4px;
     border-color: gray;
     border-style: solid;
 }
-
-/* overlay */
 #overlay {
     position: fixed;
     display: none;
@@ -56,7 +44,6 @@ td:nth-child(odd) {
     z-index: 2;
     cursor: pointer;
 }
-
 #text {
     position: absolute;
     top: 50%;
@@ -65,7 +52,4 @@ td:nth-child(odd) {
     color: white;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-}
-.center {
-    margin: auto;
 }
