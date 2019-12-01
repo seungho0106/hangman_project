@@ -282,14 +282,10 @@ async function addToLeaderboard(name, score){
   await leaderRef.add({ name: name, score: score });
 }
 
-function populateTable(leaderData) {
-  for (const [i, o] of leaderData.entries()) {
-    o.rank = i + 1;
-  }
+function setupLeaderboard() {
   let table = $("#results").DataTable({
     ordering: false,
     dom: 't',
-    data: leaderData,
     autoWidth: true,
     pageLength: 25,
     columns: [
@@ -298,6 +294,16 @@ function populateTable(leaderData) {
       { title: 'SCORE', data: 'score', width: '33%' }
     ]
   });
+}
+
+function populateTable(leaderData) {
+  for (const [i, o] of leaderData.entries()) {
+    o.rank = i + 1;
+  }
+  let table = $('#results').DataTable();
+  table.clear().draw();
+  table.rows.add(leaderData);
+  table.columns.adjust().draw();
 }
 
 function overlayOn() {
@@ -316,6 +322,7 @@ function main() {
     setupHintButton();
     setupRestartButton();
     setupOverlay();
+    setupLeaderboard();
   });
 }
 
