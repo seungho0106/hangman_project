@@ -7,13 +7,13 @@ table {
     border-spacing: 0;
 }
 tr {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     background-color: #484848;
 }
 th, td {
     margin: 0;
-    padding: .5em 0.5em;
+    padding: .2em .2em;
     text-align: center;
     border-width: 1px 0;
     border-color: gray;
