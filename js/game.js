@@ -247,7 +247,7 @@ async function gameOver() {
 
 function getUserName() {
   let name = prompt("Enter your name.");
-  while (name === "") {
+  while (name === "" || name === null) {
     name = prompt("Please enter something...");
   }
   return name;
